@@ -14,7 +14,7 @@ public class HomePage extends BasePage{
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
     }
 
-    @FindBy(xpath = "//button[text()='LOGIN']")
+    @FindBy(xpath = "//a[text()='LOGIN']")
     WebElement btnLoginHeader;
 
     public void clickBtnLoginHeader(){
