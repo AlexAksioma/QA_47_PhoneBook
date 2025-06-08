@@ -34,4 +34,15 @@ public class LoginTests extends ApplicationManager {
         loginPage.closeAlert();
         Assert.assertTrue(loginPage.isErrorMessagePresent("Login Failed with code 401"));
     }
+
+    @Test
+    public void loginNegativeTest_wrongEmail(){
+        User user = new User("qa_mailmail.com", "Qwerty123!");
+        HomePage homePage = new HomePage(getDriver());
+        homePage.clickBtnLoginHeader();
+        LoginPage loginPage = new LoginPage(getDriver());
+        loginPage.typeLoginForm(user);
+        loginPage.closeAlert();
+        Assert.assertTrue(loginPage.isErrorMessagePresent("Login Failed with code 401"));
+    }
 }
