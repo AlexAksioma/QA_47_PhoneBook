@@ -31,6 +31,18 @@ public abstract class BasePage {
             case ADD -> {
                 return (T) new AddPage(driver);
             }
+            case HOME -> {
+                return (T) new HomePage(driver);
+            }
+            case CONTACTS -> {
+                return (T) new ContactsPage(driver);
+            }
+            case ABOUT -> {
+                return (T) new AboutPage(driver);
+            }
+            case SIGN_OUT -> {
+                return (T) new LoginPage(driver);
+            }
             default -> throw new IllegalArgumentException("Invalid parameter headerMenuItem");
         }
     }
