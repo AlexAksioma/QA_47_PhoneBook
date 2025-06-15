@@ -33,7 +33,7 @@ public class AddNewContactsTests extends ApplicationManager {
         addPage = clickButtonHeader(HeaderMenuItem.ADD);
     }
 
-    @Test
+    @Test(invocationCount = 1)
     public void addNewContactPositiveTest() {
         Contact contact = Contact.builder()
                 .name(generateString(5))
@@ -45,6 +45,22 @@ public class AddNewContactsTests extends ApplicationManager {
                 .build();
         addPage.typeAddNewContactForm(contact);
         int sizeAfterAdd = contactsPage.getContactsListSize();
+        System.out.println(sizeBeforeAdd + "X" + sizeAfterAdd);
+        Assert.assertEquals(sizeBeforeAdd +1, sizeAfterAdd);
+    }
+
+    @Test(invocationCount = 1)
+    public void addNewContactPositiveTest_useFindElements() {
+        Contact contact = Contact.builder()
+                .name(generateString(5))
+                .lastName(generateString(10))
+                .phone("0123456789")
+                .email(generateEmail(10))
+                .address("Haifa " + generateString(10))
+                .description("desc " + generateString(15))
+                .build();
+        addPage.typeAddNewContactForm(contact);
+        int sizeAfterAdd = contactsPage.getContactsListSizeUseFindElement();
         System.out.println(sizeBeforeAdd + "X" + sizeAfterAdd);
         Assert.assertEquals(sizeBeforeAdd +1, sizeAfterAdd);
     }

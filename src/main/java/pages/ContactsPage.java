@@ -1,5 +1,6 @@
 package pages;
 
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -27,6 +28,15 @@ public class ContactsPage extends BasePage{
         System.out.println("contactsList.size()-->"+contactsList.size());
         return contactsList.size();
     }
+
+    public Integer getContactsListSizeUseFindElement(){
+        pause(15);
+        List<WebElement> listContactsFindElement = driver.findElements(
+                By.xpath("//div[@class='contact-item_card__2SOIM']"));
+        System.out.println("contactsList.size()-->"+listContactsFindElement.size());
+        return listContactsFindElement.size();
+    }
+
     public boolean validateContactNamePhone(String name, String phone) {
         for (WebElement element: contactsList){
             //System.out.println(element.getText());
