@@ -4,12 +4,15 @@ import dto.User;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.HomePage;
 import pages.LoginPage;
+import utils.RetryAnalyzer;
+import utils.TestNGListener;
 
 import static utils.RandomUtils.*;
-
+@Listeners(TestNGListener.class)
 public class RegistrationTests extends ApplicationManager {
     HomePage homePage;
     LoginPage loginPage;
@@ -21,7 +24,7 @@ public class RegistrationTests extends ApplicationManager {
     }
     //      BeforeMethod(App)   BeforeMethod(Reg)  Test  AfterMethod(App)
 
-    @Test
+    @Test(retryAnalyzer = RetryAnalyzer.class)
     public void registrationPositiveTest(){
         User user = new User(generateEmail(10), "Password123!");
         loginPage.typeRegistrationForm(user);

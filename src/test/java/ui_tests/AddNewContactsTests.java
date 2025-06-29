@@ -1,20 +1,25 @@
 package ui_tests;
 
+import data_providers.ContactDP;
 import dto.Contact;
 import dto.User;
 import manager.ApplicationManager;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import pages.AddPage;
 import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 import utils.HeaderMenuItem;
+import utils.TestNGListener;
 
 import static pages.BasePage.*;
 import static utils.RandomUtils.*;
+import static utils.PropertiesReader.*;
 
+@Listeners(TestNGListener.class)
 public class AddNewContactsTests extends ApplicationManager {
     HomePage homePage;
     LoginPage loginPage;
@@ -25,7 +30,9 @@ public class AddNewContactsTests extends ApplicationManager {
 
     @BeforeMethod
     public void login() {
-        User user = new User("qa_mail@mail.com", "Qwerty123!");
+        //User user = new User("qa_mail@mail.com", "Qwerty123!");
+        User user = new User(getProperty("login.properties", "email"),
+                getProperty("login.properties", "password"));
         homePage = new HomePage(getDriver());
         loginPage = clickButtonHeader(HeaderMenuItem.LOGIN);
         loginPage.typeLoginForm(user);
@@ -45,6 +52,14 @@ public class AddNewContactsTests extends ApplicationManager {
                 .address("Haifa " + generateString(10))
                 .description("desc " + generateString(15))
                 .build();
+        addPage.typeAddNewContactForm(contact);
+        int sizeAfterAdd = contactsPage.getContactsListSize();
+        System.out.println(sizeBeforeAdd + "X" + sizeAfterAdd);
+        Assert.assertEquals(sizeBeforeAdd +1, sizeAfterAdd);
+    }
+
+    @Test(dataProvider = "dataProviderContactsFile", dataProviderClass = ContactDP.class)
+    public void addNewContactPositiveTestDP(Contact contact) {
         addPage.typeAddNewContactForm(contact);
         int sizeAfterAdd = contactsPage.getContactsListSize();
         System.out.println(sizeBeforeAdd + "X" + sizeAfterAdd);
