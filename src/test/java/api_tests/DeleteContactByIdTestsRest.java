@@ -14,7 +14,8 @@ import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInC
 
 public class DeleteContactByIdTestsRest extends ContactController {
     Contact contact;
-    @BeforeClass
+
+    @BeforeClass(alwaysRun = true)
     public void createContact() {
         contact = Contact.builder()
                 .name(generateString(5))
@@ -34,7 +35,7 @@ public class DeleteContactByIdTestsRest extends ContactController {
         }
     }
 
-    @Test
+    @Test(groups = "smoke")
     public void deleteContactByIdPositiveTest(){
         Response response = deleteContactById(contact, tokenDto);
         response
