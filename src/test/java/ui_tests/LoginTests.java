@@ -30,7 +30,7 @@ public class LoginTests extends ApplicationManager {
         //System.out.println("after assert");
     }
 
-    @Test
+    @Test()
     public void loginNegativeTest_wrongPassword() {
         User user = new User("qa_mail@mail.com", "Qwerty123!ZZZ");
         HomePage homePage = new HomePage(getDriver());
@@ -41,7 +41,7 @@ public class LoginTests extends ApplicationManager {
         Assert.assertTrue(loginPage.isErrorMessagePresent("Login Failed with code 401"));
     }
 
-    @Test
+    @Test()
     public void loginNegativeTest_wrongEmail() {
         User user = new User("qa_mailmail.com", "Qwerty123!");
         HomePage homePage = new HomePage(getDriver());

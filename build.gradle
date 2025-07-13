@@ -23,22 +23,52 @@ dependencies {
     implementation 'io.rest-assured:rest-assured:4.5.1'
     implementation 'com.google.code.gson:gson:2.8.6'
 
-     //https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
+    //https://mvnrepository.com/artifact/io.rest-assured/json-schema-validator
     implementation("io.rest-assured:json-schema-validator:3.0.0")
+
+
 }
 
 test {
     useTestNG()
 }
 
-task smoke_tests(type: Test){
-    useTestNG(){
+task smoke_tests(type: Test) {
+    useTestNG() {
         suites 'src/test/resources/smoke_tests.xml'
     }
 }
 
-task smoke_tests_api(type: Test){
-    useTestNG(){
+task smoke_tests_api(type: Test) {
+    useTestNG() {
         suites 'src/test/resources/smoke_tests_api.xml'
     }
 }
+
+task login_tests_browser(type: Test) {
+    useTestNG() {
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        suites 'src/test/resources/login_tests.xml'
+    }
+}
+
+task different_tests(type: Test) {
+    useTestNG() {
+        if (project.hasProperty('browser')) {
+            systemProperty 'browser', "${browser}"
+        }
+        def suite = System.getProperty('suite', 'smoke_tests')
+        if (suite.equalsIgnoreCase('smoke_tests')) {
+            suites 'src/test/resources/smoke_tests.xml'
+        } else if(suite.equalsIgnoreCase('smoke_tests_api')){
+            suites 'src/test/resources/smoke_tests_api.xml'
+        } else if(suite.equalsIgnoreCase('login_tests_browser')){
+            suites 'src/test/resources/login_tests.xml'
+        } else{
+            suites 'src/test/resources/smoke_tests.xml'
+        }
+    }
+}
+
