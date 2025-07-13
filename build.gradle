@@ -72,3 +72,9 @@ task different_tests(type: Test) {
     }
 }
 
+
+task parameter(type: Test) {
+    useTestNG() {
+        suites 'src/test/resources/parameters/parameter1.xml'
+    }
+}
