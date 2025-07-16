@@ -1,4 +1,4 @@
-cd C:\QA_Auto_Projects\QA_47\QA_47_PhoneBook        //from console
+cd C:\QA_Auto_Projects\QA_47\QA_47_PhoneBook        //from console !!!
 ./gradlew clean smoke_tests
 ./gradlew clean smoke_tests_api
 ./gradlew clean login_tests_browser
